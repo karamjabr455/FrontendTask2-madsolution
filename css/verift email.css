@@ -1,0 +1,246 @@
+@font-face{
+  src: url(../fonts/AGCRegular.ttf);
+  font-family:'AGCRegular';
+}
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+
+}
+body {
+   overflow: hidden;
+    background-image: url(../img/Rectangle\ 82.png);
+    background-repeat: no-repeat;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    font-family:'AGCRegular';
+   
+}
+
+
+
+
+.background-image {
+    position: absolute; 
+    top: 150px; 
+    
+    left: 250px; 
+    width: 48%; 
+    height: 40%;
+    z-index:-1; 
+   
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    
+
+
+  }
+  
+  
+
+
+.otp-Form {
+
+    position: relative; 
+    z-index: 1; 
+    width: 500px;
+    height: 300px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    gap: 20px;
+    position: relative;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.082);
+    border-radius: 15px;
+    margin: auto;
+    top: 150px;
+    left: 100px;
+   
+  }
+  
+  .mainHeading {
+    font-size: 1.1em;
+    color: rgb(15, 15, 15);
+    font-weight: 700;
+  }
+  .mainHeading span{
+    color:#6B48FF;
+  }
+  .otpSubheading {
+    font-size: 0.7em;
+    color: black;
+    line-height: 17px;
+    text-align: center;
+  }
+  .otpSubheading a{
+    text-decoration: none;
+  }
+  
+  .inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .otp-input {
+    background-color: rgb(228, 228, 228);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    border-radius: 7px;
+    caret-color: rgb(127, 129, 255);
+    color: rgb(44, 44, 44);
+    outline: none;
+    font-weight: 600;
+  }
+  
+  .otp-input:focus,
+  .otp-input:valid {
+    background-color: rgba(127, 129, 255, 0.199);
+    transition-duration: .3s;
+  }
+  
+  .verifyButton {
+    width: 50%;
+    height: 80px;
+    border: none;
+    background-color:#1EE3CF;
+    
+    
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: .2s;
+  }
+  
+  .verifyButton:hover {
+    background-color: rgb(144, 145, 255);
+    transition-duration: .2s;
+  }
+  
+  .exitBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.171);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: none;
+    color: black;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+  
+  .resendNote {
+    font-size: 0.7em;
+    color: black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .resendBtn {
+    width: 50%;
+    height: 30px;
+    background-color:rgb(236, 234, 234);
+    border: none;
+    border-radius: 20px;
+    color:#0A0E3F;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+
+  
+@media screen and (max-width:600px) {
+    body{
+      overflow: hidden;
+      background-size: cover;
+    }
+  
+    .otp-Form{
+      width:70%;
+      margin: auto;
+      left:30px;
+      top: 150px;
+      
+    }
+    .background-image{
+      right: 250px;
+      height: 32%;
+    }
+}  
+@media screen and (max-width:500px) {
+    .background-image{
+        right:200px;
+        height: 32%;
+      }
+
+}
+
+
+@media screen and (max-width:460px) {
+    .background-image{
+display: none;
+}
+.otp-Form{
+    width:70%;
+    margin: auto;
+    left:0px;
+    top: 150px;
+    
+  }
+}
+
+@media screen and (min-width:600px) and (max-width:800px){
+  .background-image{
+    right:300px;
+    top:150px;
+    height: 32%;
+  }
+}
+
+@media screen and (min-width:800px) and (max-width:1000px)
+{
+  .background-image{
+    right:300px;
+    top:150px;
+    height: 32%;
+  }
+  .otp-Form{
+    left: 100px;
+  }
+  
+}
+
+@media screen and (min-width:800px) and (max-width:1500px)
+{.background-image{
+  right:500px;
+  top:150px;
+  height: 32%;
+}
+.otp-Form{
+  left: 50px;
+}
+
+}

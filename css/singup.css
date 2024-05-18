@@ -1,0 +1,485 @@
+@font-face{
+    src: url(../fonts/AGCRegular.ttf);
+    font-family:'AGCRegular';
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+
+}
+body {
+    overflow: hidden;
+    font-family: 'AGCRegular', sans-serif !important;
+    overflow: hidden;
+    background-image: url(../img/amazing-aerial-shot-singapore-cityscape-with-lots-skyscrapers.png);
+    background-repeat: no-repeat;
+    height: 100vh;
+  
+   background-size: cover;
+    overflow-x: hidden;
+   
+   
+
+}
+.spacer {
+    flex-grow: 1; 
+  }
+
+
+.navbar{
+    background-color:#F2F4F6;
+}
+
+.navbar .navbar-nav{
+    margin-right:80px;
+    color: #161D6F;
+}
+
+.navbar-nav .nav-link {
+    color: #161D6F; 
+  }
+  .navbar-toggler-icon i{
+    color: #161D6F; 
+    font-size: 30px;
+  
+   
+}
+
+.navbar-toggler {
+    background-color: #fff; 
+    
+    margin-right: 20px;
+}
+
+  .navbar-nav .nav-link:hover {
+    color: #161d6fbb; 
+  }
+
+.button{
+    margin-left: 20px; 
+}
+.button .button-sing-up{
+    width:100px;
+    border:1px solid #161D6F;
+    color: #161D6F;
+    border-radius: 5px;
+    background-color: transparent;
+    
+}
+
+.button .button-sing-up:hover{
+    background-color: #161D6F;
+    color: #1EE3CF;
+}
+.button .button-start{
+background: #161D6F;
+color: #1EE3CF;
+border: none;
+border-radius: 5px;
+width: 50px;
+}
+.button .button-start:hover{
+    background-color: transparent;
+    color: #161D6F;
+    border:1px solid #161D6F;
+
+
+}
+
+
+.centered-button {
+    position: fixed;
+    left: 48%;
+     top:500px;
+    
+    transform: translateX(-90%);
+    background-color: #1EE3CF; 
+    color: #0A0E3F; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    width: 400px;
+    border-radius: 15px;
+}
+
+.centered-button:hover{
+    background-color: #1ee3cf92;
+}
+
+@media (max-width: 576px) {
+    .centered-button {
+        display: block; 
+        margin: 0 auto; 
+        text-align: center; 
+        width: 50%;
+    }
+}
+
+#page-title{
+  margin:auto;
+  color:#1f233a;
+}
+
+.form {
+  border-radius: 15px;
+  box-shadow: 10px 0 15px rgba(0, 0, 0, 0.3);
+
+  margin: auto;
+  height: 90vh;
+
+align-items:flex-start;
+
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fdfdfd;
+  padding: 30px;
+  width: 85%;
+  border-radius: 20px;
+  position: relative;
+bottom: 40px;
+ margin-right:0px;
+  
+}
+
+
+
+.form-group input{
+  border: 1px solid black;
+    border-radius: 20px;
+    
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 0px;
+    width: 200%;
+    transition: 0.2s ease-in-out;
+}
+
+.uplode {
+  margin: 10px 600px;
+position: absolute;
+bottom: 320px;
+width: 40%;
+height:250px;
+padding:100px;
+
+
+
+}
+
+.uplode p{
+  font-size:10px;
+}
+.labelFile {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #161D6F;
+width: 300px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  background:#e0dafe;
+margin-bottom: 10px;
+position: relative;
+bottom:75px;
+left: 50px;
+  
+}
+.labelFile span svg {
+  margin-bottom: 10px;
+  width:50px;
+  
+}
+.or-line {
+  margin: auto;
+  position: relative;
+}
+
+.or-line span::before,
+.or-line span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 50px; /* تعديل حجم الخطوط حسب الحاجة */
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.267); /* لون الخطوط */
+  
+}
+.or-line span{
+  color:rgba(0, 0, 0, 0.267);
+}
+
+.or-line span::before {
+  left: -60px; /* المسافة من اليسار */
+}
+
+.or-line span::after {
+  right: -60px; /* المسافة من اليمين */
+}
+.centered-button{
+ margin-top:-20px;
+}
+
+
+#btn-flex{
+  margin: auto;
+  justify-content: space-between;
+  
+}
+
+
+#btn-facebook{
+  background-color: #1877f2;
+  border-radius: 20px;
+  border: none;
+  color: #ededef;
+}
+
+#btn-google{
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.104);
+}
+
+#btn-apple{
+  background-color: black;
+  color: #ededef;
+  border-radius: 20px;
+  border: none;
+}
+
+.btn.facebook svg path {
+  fill: white;
+}
+
+.btn.apple svg path {
+  fill: white;
+}
+
+
+
+@media only screen and (max-width: 360px) {
+
+  .navbar .navbar-nav{
+    z-index: 100;
+  }
+  .form {
+    width: 95%; /* Adjust width for smaller screens */
+    padding:20px; /* Adjust padding */
+    bottom: 200px; /* Adjust position */
+   
+    z-index: -1;
+  }
+
+  .form-group input{
+    width: 100%;
+  }
+  .uplode {
+    display: none;
+ 
+  }
+  .centered-button{
+    margin-top:-70px;
+    margin-left: 80px;
+  
+   }
+   #btn-flex{
+    display: flex;
+    margin: auto;
+    position: relative;
+    bottom: -10px;
+    justify-content: space-between;
+    
+  }
+  .or-line {
+    display: none;
+  }
+}
+
+
+@media only screen and (min-width: 361px) and (max-width: 800px) {
+
+  .navbar .navbar-nav{
+    z-index: 100;
+  }
+  .form {
+    width: 95%; /* Adjust width */
+    padding: 20px; /* Adjust padding */
+    bottom: 150px; /* Adjust position */
+
+    z-index: -1;
+
+  }
+  .form-group input{
+    width: 100%;
+  }
+  .uplode {
+display: none;
+ 
+  }
+
+  .centered-button{
+    margin-top:20px;
+    margin-left: 80px;
+  
+   }
+   #btn-flex{
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    position: relative;
+    bottom: 50px;
+  }
+
+  .or-line {
+    display: none;
+  }
+}
+
+
+@media only screen and (min-width:576px) and (max-width: 800px) {
+  .centered-button{
+    margin-top:20px;
+    margin-left: 120px;
+    width: 50%;
+  
+   }
+}
+
+@media only screen and (min-width:700px) and (max-width: 768px) {
+  .centered-button{
+    margin-top:20px;
+    margin-left: 150px;
+    width: 50%;
+  
+   }
+  
+
+
+  
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1400px) {
+  .form {
+    width:100%; /* Adjust width */
+    padding: 30px; /* Adjust padding */
+    bottom: 40px; /* Adjust position */
+  }
+
+  .form-group input{
+    width:150%;
+  }
+  .uplode {
+  position: relative;
+  left: 300px;
+  bottom: 340px;
+  }
+
+
+  .centered-button{
+    position: relative;
+    top: -200px;
+  
+  
+  
+   }
+
+   .or-line {
+    margin: auto;
+    position: relative;
+    bottom: 200px;
+  }
+
+  .flex-row .p{
+    position: relative;
+    bottom: 280px;
+  }
+
+  #btn-flex{
+   
+    margin: auto;
+    justify-content: space-between;
+    position: relative;
+    bottom:200px;
+  }
+}
+
+@media only screen and (min-width: 991px) and (max-width: 1400px){
+
+  .uplode {
+    position: relative;
+    left: 200px;
+    bottom: 340px;
+    }
+
+    .centered-button{
+      position: relative;
+     
+    left: 150px;
+    
+    
+     }
+
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px){
+  .form {
+    width:100%; /* Adjust width */
+    padding: 30px; /* Adjust padding */
+    bottom: 40px; /* Adjust position */
+  }
+
+  .form-group input{
+    width:250%;
+  }
+
+
+  .uplode {
+    position: relative;
+    left:0px;
+    bottom: 340px;
+    }
+
+    .centered-button{
+      position: relative;
+     
+    left: 18px;
+    
+
+}
+}
+
+
+@media only screen and (min-width: 1400px) and (max-width: 1500px){
+  .uplode {
+    position: relative;
+    left:0px;
+    bottom: 340px;
+    }
+
+    .or-line {
+      margin: auto;
+      position: relative;
+      bottom: 200px;
+    }
+  
+    .flex-row .p{
+      position: relative;
+      bottom: 280px;
+    }
+  
+    #btn-flex{
+     
+      margin: auto;
+      justify-content: space-between;
+      position: relative;
+      bottom:200px;
+    }
+}

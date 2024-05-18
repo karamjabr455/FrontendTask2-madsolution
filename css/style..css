@@ -1,0 +1,155 @@
+@font-face{
+    src: url(../fonts/AGCRegular.ttf);
+    font-family:'AGCRegular';
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+
+}
+body {
+    overflow: hidden;
+    font-family: 'AGCRegular', sans-serif !important;
+    overflow: hidden;
+    background-image: url(../img/Rectangle\ 82.png);
+    background-repeat: no-repeat;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    
+   
+
+}
+.spacer {
+    flex-grow: 1; 
+  }
+
+
+.navbar{
+    background-color:#F2F4F6;
+}
+
+.navbar .navbar-nav{
+    margin-right:80px;
+    color: #161D6F;
+}
+
+.navbar-nav .nav-link {
+    color: #161D6F; 
+  }
+  .navbar-toggler-icon i{
+    color: #161D6F; 
+    font-size: 30px;
+  
+   
+}
+
+.navbar-toggler {
+    background-color: #fff; 
+    
+    margin-right: 20px;
+}
+
+  .navbar-nav .nav-link:hover {
+    color: #161d6fbb; 
+  }
+
+.button{
+    margin-left: 20px; 
+}
+.button .button-sing-up{
+    width:100px;
+    border:1px solid #161D6F;
+    color: #161D6F;
+    border-radius: 5px;
+    background-color: transparent;
+    
+}
+
+.button .button-sing-up:hover{
+    background-color: #161D6F;
+    color: #1EE3CF;
+}
+.button .button-start{
+background: #161D6F;
+color: #1EE3CF;
+border: none;
+border-radius: 5px;
+width: 50px;
+}
+.button .button-start:hover{
+    background-color: transparent;
+    color: #161D6F;
+    border:1px solid #161D6F;
+
+
+}
+
+/* nav bar end */
+
+
+
+/* The second page logs in */
+
+
+
+.background {
+    width: 100%;
+    height: 91.5vh;
+   background-image: url(../img/Rectangle\ 82.png);
+   background-position: center;
+   background-repeat: no-repeat;
+  
+
+
+}
+
+
+
+
+ .content{
+    width: 100%;
+   height: 11vh;
+    background-color: #161D6F;
+ position: absolute;
+ bottom:0px;
+   
+  
+    
+}
+.content a{
+text-decoration: none;
+}
+
+.content h3{
+    font-size:50px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+@media (max-width: 752px) {
+    .content h3{
+        font-size:30px;
+    }
+}
+@media (max-width: 451px) {
+    .content h3{
+        font-size:19px;
+    }
+ 
+}
+
+
+
+
+
+
+
+
+
