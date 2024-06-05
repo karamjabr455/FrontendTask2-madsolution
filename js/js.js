@@ -54,3 +54,61 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   });
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const loaderBar = document.querySelector('.loader-bar');
+    const preloader = document.getElementById('preloader');
+    const content = document.getElementById('content');
+
+    // Strip count
+    const loaderDuration = 3000; 
+
+   
+    setTimeout(() => {
+        loaderBar.style.width = '100%';
+        startCounting();
+    }, 100);
+    function startCounting() {
+        let startTime = performance.now();
+        function animateCount(currentTime) {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(1, elapsedTime / loaderDuration);
+            const progressPercent = Math.round(progress * 100);
+            updateProgress(progressPercent);
+            if (progress < 1) {
+                requestAnimationFrame(animateCount);
+            }
+        }
+        requestAnimationFrame(animateCount);
+    }
+
+   
+    function updateProgress(percent) {
+        const progressCount = document.querySelector('.progress-count');
+        progressCount.textContent = percent + '%';
+    }
+
+   // When the tape has finished stretching across
+    loaderBar.addEventListener('transitionend', (event) => {
+        if (event.propertyName === 'width' && loaderBar.style.width === '100%') {
+            preloader.classList.add('expand');
+        }
+    });
+
+    // When the longitudinal expansion movement ends
+    preloader.addEventListener('transitionend', (event) => {
+        if (event.propertyName === 'height') {
+            preloader.classList.add('fade-out');
+        }
+    });
+
+    // When the fade animation ends
+    preloader.addEventListener('animationend', () => {
+        preloader.style.display = 'none';
+        content.style.display = 'block';
+    });
+});
+
+

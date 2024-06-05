@@ -9,8 +9,23 @@
     <title>login</title>
 </head>
 <body>
+    <div id="preloader">
+        <div class="loader-bar">
+            <div class="progress-label">انتظر من فضلك:<span class="progress-count">0%</span></div>
+        </div>
+    </div>
+    <div id="content">
+     
+    </div>
+
+
+
+
+  
     
-    <header>
+       
+    
+       <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="" srcset=""></a>
@@ -45,9 +60,10 @@
                 </div>
             </div>
         </nav>
-    </header>
+      </header>
 
-    <div class="background">
+    <div class="index-content">  
+        <div class="background">
         <div class="text">
             <h4 class="text-h4">أحصل على الإقامة التركية بكل سهولة مع Assetify</h4>
             <h2 class="text-h2">استثمر من أي مكان في العالم واحصل على <br> الإقامة التركية</h2>
@@ -55,31 +71,60 @@
         
         </div>
        
+      </div>
+    
+    
     </div>
+
+    
    
   
-    <div id="confirmationModal" class="modal">
+      <div id="confirmationModal" class="modal">
         <div class="modal-content">
             <p>هل أنت متأكد من تسجيل الخروج؟</p>
             <button id="confirmLogout">تأكيد</button>
             <button id="cancelLogout">تراجع</button>
         </div>
-    </div>
+      </div>
 
      
         
+      
+        <div class="content">
+            <a href=""><h3>قم بالارتقاء تلقائيا الى فئة Assetify+ </h3></a> 
+         </div>
+            <div class="overlay" id="overlay"></div>
+     
+    
+    
+    
+
+     
+   
+
+
+
+
+<script>
+    //Navigate to login
   
-   
-
-    <div class="content">
-        <a href=""><h3>قم بالارتقاء تلقائيا الى فئة Assetify+ </h3></a> 
-     </div>
-     <div class="overlay" id="overlay"></div>
- 
-   
+const createAccountLink = document.querySelector('.span a');
 
 
+createAccountLink.addEventListener('click', function(event) {
+  
+    event.preventDefault();
 
+    const indexContent = document.querySelector('.index-content');
+    indexContent.classList.add('slide-out');
+
+    setTimeout(function() {
+       
+        window.location.href = './login.html';
+    }, 1000); 
+});
+
+</script>
 
   
 

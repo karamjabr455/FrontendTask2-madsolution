@@ -37,12 +37,15 @@
                     </ul>
                 </div>
                 <div class="button">
-                    <a href="./login.html"> <button class="button-sing-up button-login">سجل دخول</button></a> 
+                    <a href="./login.html"> <button class="button-sing-up button-login" id="login-link">سجل دخول</button></a> 
                     <button class="button-start">ابدأ</button>
                 </div>
             </div>
         </nav>
     </header>
+    
+<div class="signup-content">
+   
 
     <div class="container mt-5">
       <form id="login-form" class="form">
@@ -197,11 +200,33 @@
 
 
 
+    </div>
 
 
+</div>
+   
 
 
+<script>
+  
+    const loginLink = document.getElementById('login-link');
 
+    
+    loginLink.addEventListener('click', function(event) {
+       
+        event.preventDefault();
+
+        ////Apply animation to page content
+        const indexContent = document.querySelector('.signup-content');
+        indexContent.classList.add('slide-out');
+
+        
+        setTimeout(function() {
+           
+            window.location.href = './login.html';
+        }, 1000); 
+    });
+</script>
 
 
 
