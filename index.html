@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./css/Login form.css">
     <title>login</title>
 </head>
@@ -52,7 +53,7 @@
                     </ul>
                 </div>
                 <div class="button">
-                    <a id="logoutButton" href="./login.html">
+                    <a id="logoutButton">
                         <button id="loginButton" class="button-sing-up button-login">تسجيل دخول</button>
                       </a>
                  
@@ -78,14 +79,13 @@
 
     
    
-  
-      <div id="confirmationModal" class="modal">
+    <div id="confirmationModal" class="modal">
         <div class="modal-content">
             <p>هل أنت متأكد من تسجيل الخروج؟</p>
             <button id="confirmLogout">تأكيد</button>
             <button id="cancelLogout">تراجع</button>
         </div>
-      </div>
+    </div>
 
      
         
@@ -108,22 +108,114 @@
 <script>
     //Navigate to login
   
-const createAccountLink = document.querySelector('.span a');
+// const createAccountLink = document.querySelector('.span a');
 
 
-createAccountLink.addEventListener('click', function(event) {
+// createAccountLink.addEventListener('click', function(event) {
   
-    event.preventDefault();
+//     event.preventDefault();
 
-    const indexContent = document.querySelector('.index-content');
-    indexContent.classList.add('slide-out');
+//     const indexContent = document.querySelector('.index-content');
+//     indexContent.classList.add('slide-out');
 
-    setTimeout(function() {
+//     setTimeout(function() {
        
-        window.location.href = './login.html';
-    }, 1000); 
-});
+//         window.location.href = './login.html';
+//     }, 1000); 
+// });
 
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded started');
+    const loginButton = document.getElementById('loginButton');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log('DOMContentLoaded - isLoggedIn:', isLoggedIn);
+
+    if (isLoggedIn === 'true') {
+        loginButton.textContent = 'تسجيل خروج';
+        console.log('DOMContentLoaded - User is logged in, setting logout button');
+
+        loginButton.addEventListener('click', function() {
+            console.log('Logout button clicked, showing confirmation modal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            confirmationModal.style.display = 'block';
+        });
+
+        document.getElementById('confirmLogout').addEventListener('click', async function() {
+            console.log('Confirm logout clicked');
+            const url = 'https://task5-riham-esmail.trainees-mad-s.com/api/auth/logout';
+            const accessToken = localStorage.getItem('accessToken');
+            console.log('Logout - accessToken:', accessToken);
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                });
+
+                console.log('Logout - HTTP status:', response.status);
+
+                if (response.status === 200) {
+                    const data = await response.json();
+                    console.log('Logout - API response:', data);
+
+                    // Assuming the response contains the refresh token in data.refreshToken
+                    if (data.data && data.data.refreshToken) {
+                        localStorage.setItem('refresh_token', data.data.refreshToken);
+                    }
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'تم تسجيل الخروج',
+                        text: 'تم تسجيل الخروج بنجاح.',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            console.log('Logout successful');
+                            localStorage.removeItem('isLoggedIn');
+                            localStorage.removeItem('accessToken');
+                            window.location.href = 'login.html';
+                        }
+                    });
+                } else {
+                    const errorData = await response.json();
+                    console.error('Logout - Failed to logout:', response.status, 'Response data:', errorData);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ في تسجيل الخروج',
+                        text: 'حدث خطأ أثناء محاولة تسجيل الخروج. يرجى المحاولة مرة أخرى.',
+                    });
+                }
+            } catch (error) {
+                console.error('Logout - Unexpected error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'حدث خطأ غير متوقع',
+                    text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+                });
+            } finally {
+                // Hide the confirmation modal
+                const confirmationModal = document.getElementById('confirmationModal');
+                confirmationModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('cancelLogout').addEventListener('click', function() {
+            console.log('Cancel logout clicked');
+            const confirmationModal = document.getElementById('confirmationModal');
+            confirmationModal.style.display = 'none';
+        });
+    } else {
+        loginButton.textContent = 'تسجيل دخول';
+        console.log('DOMContentLoaded - User is not logged in, setting login button');
+        
+        loginButton.addEventListener('click', function() {
+            console.log('Login button clicked, redirecting to login page');
+            window.location.href = 'login.html';
+        });
+    }
+});
 </script>
 
   
@@ -149,9 +241,9 @@ createAccountLink.addEventListener('click', function(event) {
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
+<script src="./js/auth.js"></script>
 
 
     <script src="./js/bootstrap.bundle.min.js"></script>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/verift email.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Ensure SweetAlert is loaded -->
     <title>Document</title>
 </head>
 <body>
@@ -14,26 +15,21 @@
     <div class="form-container">
         <img class="background-image" src="./img/analog-landscape-city-with-buildings.png">
 
-        <form class="otp-Form">
- 
-            <span class="mainHeading">مرحبا بك <span>RED</span></span>
-            <p class="otpSubheading">لقد تم ارسال رمز التأكيد الى:<a href="">red1234@gmail.com</a></p>
+        <form class="otp-Form" id="otp-form">
+            <span class="mainHeading">مرحبا بك <span id="username">RED</span></span>
+            <p class="otpSubheading">لقد تم ارسال رمز التأكيد الى:<a href="#" id="user-email"></a></p>
             <div class="inputContainer">
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1">
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2">
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3">
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4"> 
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input5"> 
-             <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input6"> 
-
-             
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1">
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2">
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3">
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4">
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input5">
+                <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input6">
             </div>
-             <button class="verifyButton" type="submit">تأكيد</button>
-               <button class="exitBtn">×</button>
-               <p class="resendNote">اذا لم يصلك الرمز يمكنك اعادة المحاولة بعد 4:20د<button class="resendBtn">إعادة الإرسال </button></p>
-               
-          </form>
-
+            <button class="verifyButton" type="submit">تأكيد</button>
+            <p class="resendNote">إذا لم يصلك الرمز يمكنك إعادة المحاولة بعد <span id="timer">4:20</span> دقيقة <button class="resendBtn" id="resendBtn" >إعادة الإرسال</button></p>
+            <!-- <input type="email" id="emailInput" placeholder="ادخل بريدك الإلكتروني" required> -->
+        </form>
 
 
 
@@ -50,7 +46,163 @@
 
     
 
+<script>
 
+
+document.getElementById('otp-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const email = localStorage.getItem('user_email');
+    const code = Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
+
+    if (code.length !== 6) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ في الرمز',
+            text: 'يرجى إدخال رمز مكون من 6 أرقام.',
+        });
+        console.error('Error: The entered code is not 6 digits.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('code', code);
+
+    try {
+        const response = await sendProtectedRequest('https://task5-riham-esmail.trainees-mad-s.com/api/auth/verify-email', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+        console.log('API response:', data);
+
+        if (response.status === 200) {
+            Swal.fire({
+                icon: 'success',
+                title: 'تم تأكيد البريد الإلكتروني',
+                text: 'تم تأكيد البريد الإلكتروني بنجاح.',
+            });
+            console.log('Email verified successfully.');
+        } else if (response.status === 404) {
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ في التحقق',
+                text: 'البريد الإلكتروني أو الرمز غير صحيح. يرجى التحقق والمحاولة مرة أخرى.',
+            });
+            console.error('Error: Email or code is incorrect.');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ في التأكيد',
+                text: data.message || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+            });
+            console.error('Unexpected error:', data.message || 'No additional information provided.');
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'حدث خطا غير متوقع',
+            text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+        });
+        console.error('Unexpected error:', error);
+    }
+});
+
+// resendBtn
+document.getElementById('resendBtn').addEventListener('click', async function(event) {
+    event.preventDefault();
+
+
+    const email = localStorage.getItem('user_email');
+
+    if (!email) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ في البريد الإلكتروني',
+            text: 'لم يتم العثور على بريد إلكتروني في التخزين المحلي.',
+        });
+        console.error('Error: Email not found in localStorage');
+        return;
+    }
+
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ في البريد الإلكتروني',
+            text: 'الرجاء إدخال بريد إلكتروني صحيح.',
+        });
+        console.error('Error: Invalid email format');
+        return;
+    }
+
+    
+    const formData = new FormData();
+    formData.append('email', email);
+
+    try {
+       
+        const response = await fetch('https://task5-riham-esmail.trainees-mad-s.com/api/auth/resend', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+                
+            },
+        });
+
+        const data = await response.json();
+        console.log('Resend API response:', data);
+
+    
+        if (response.status === 200) {
+           
+            Swal.fire({
+                icon: 'success',
+                title: 'تم إعادة الإرسال',
+                text: `تم إرسال رمز التحقق إلى ${email} بنجاح.`,
+            });
+            console.log('Resend successful.');
+        } else if (response.status === 404) {
+          
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ في الإعادة',
+                text: 'البريد الإلكتروني غير موجود. يرجى التحقق والمحاولة مرة أخرى.',
+            });
+            console.error('Error: Email not found.');
+        } else {
+           
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ في الإعادة',
+                text: data.message || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+            });
+            console.error('Unexpected error:', data.message || 'No additional information provided.');
+        }
+    } catch (error) {
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'حدث خطأ غير متوقع',
+            text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+        });
+        console.error('Unexpected error:', error);
+    }
+});
+
+
+
+
+
+
+
+
+
+</script>
 
 
 
@@ -59,6 +211,7 @@
 
 
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/auth.js"></script>
     <script src="./js/js.js"></script>
 </body>
 </html>

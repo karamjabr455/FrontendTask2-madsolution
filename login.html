@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="./css/Login form.css">
     <title>Document</title>
 </head>
@@ -24,15 +25,17 @@
                             <div class="flex-column">
                               <label>الايميل او رقم الهاتف  </label></div>
                               
-                               <input class="inputForm" type="text">
+                              <input class="inputForm" type="text" id="email" required>
+
+                              <input class="inputForm" type="text" id="phone" placeholder="Phone Number" required>
                                
                               
                             
                             <div class="flex-column">
                               <label>كلمة المرور  </label></div>
-                              <input class="inputForm" type="password">
+                              <input class="inputForm" type="password" id="password" required>
                             
-                             <button id="logoutButtonLink" class="button-submit">تسجيل الدخول</button>  
+                             <button class="button-submit" type="submit">تسجيل الدخول</button>  
                             <div class="flex-row">
                                 <p class="p">ليس لديك حساب؟ <span class="span"><a href="./signup.html">انشاء حساب</a></span>
                                     <span class="span" style="color: #161D6F;">نسيت كملة السر</span>
@@ -96,31 +99,183 @@
             </div>
             </div>
             
-          
+            <div id="message"></div>
     </div>
     
     <script>
 
-const createAccountLink = document.querySelector('.span a');
+// const createAccountLink = document.querySelector('.span a');
 
 
-createAccountLink.addEventListener('click', function(event) {
+// createAccountLink.addEventListener('click', function(event) {
    
+//     event.preventDefault();
+
+//     // Apply animation to login page content
+//     const loginContent = document.querySelector('.login-content');
+//     loginContent.classList.add('slide-out');
+//     setTimeout(function() {
+//         window.location.href = './signup.html';
+//     }, 1000); 
+// });
+
+// ...................................................................
+// Function to handle login form submission
+document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    // Apply animation to login page content
-    const loginContent = document.querySelector('.login-content');
-    loginContent.classList.add('slide-out');
-    setTimeout(function() {
-        window.location.href = './signup.html';
-    }, 1000); 
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('phone_number', phone);
+    formData.append('password', password);
+
+    for (const pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+    }
+
+    try {
+        const response = await fetch('https://task5-riham-esmail.trainees-mad-s.com/api/auth/login', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('API response:', data);
+
+        if (response.status === 200 || response.status === 201) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('accessToken', data.data.accessToken);
+            localStorage.setItem('username', data.data.username); // Store username
+
+            Swal.fire({
+                icon: 'success',
+                title: 'تم تسجيل الدخول',
+                text: 'تم تسجيل الدخول بنجاح.',
+            }).then(() => {
+                console.log('Direction to the home page');
+                window.location.href = 'index.html';
+            });
+        } else if (response.status === 401) {
+            Swal.fire({
+                icon: 'error',
+                title: 'يجب تأكيد الحساب',
+                text: 'يرجى تأكيد حسابك قبل تسجيل الدخول.',
+            });
+            console.error('Error 401: Account confirmation required. Response data:', data);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ في تسجيل الدخول',
+                text: data.message || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+            });
+            console.error('Unexpected error. Response status:', response.status, 'Response data:', data);
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'حدث خطا غير متوقع',
+            text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+        });
+        console.error('Unexpected error:', error);
+    }
+});
+
+// Function to handle DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded started');
+    const loginButton = document.getElementById('loginButton');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const username = localStorage.getItem('username'); // Get username from localStorage
+    console.log('DOMContentLoaded - isLoggedIn:', isLoggedIn);
+
+    if (isLoggedIn === 'true') {
+        loginButton.textContent = `تسجيل خروج (${username})`; // Display username next to the button text
+        console.log('DOMContentLoaded - User is logged in, setting logout button');
+
+        loginButton.addEventListener('click', async function() {
+            console.log('Logout button clicked');
+
+            // Show confirmation modal
+            const confirmationModal = document.getElementById('confirmationModal');
+            confirmationModal.style.display = 'block';
+
+            document.getElementById('confirmLogout').addEventListener('click', async function() {
+                confirmationModal.style.display = 'none';
+
+                const url = 'https://task5-riham-esmail.trainees-mad-s.com/api/auth/logout';
+                const accessToken = localStorage.getItem('accessToken');
+                console.log('Logout - accessToken:', accessToken);
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                    });
+
+                    console.log('Logout - HTTP status:', response.status);
+
+                    if (response.status === 200) {
+                        const data = await response.json();
+                        console.log('Logout - API response:', data);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم تسجيل الخروج',
+                            text: 'تم تسجيل الخروج بنجاح.',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                console.log('Logout successful');
+                                localStorage.removeItem('isLoggedIn');
+                                localStorage.removeItem('accessToken');
+                                localStorage.removeItem('username'); // Remove username from localStorage
+                                window.location.href = 'login.html';
+                            }
+                        });
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Logout - Failed to logout:', response.status, 'Response data:', errorData);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ في تسجيل الخروج',
+                            text: 'حدث خطأ أثناء محاولة تسجيل الخروج. يرجى المحاولة مرة أخرى.',
+                        });
+                    }
+                } catch (error) {
+                    console.error('Logout - Unexpected error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'حدث خطأ غير متوقع',
+                        text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+                    });
+                }
+            });
+
+            document.getElementById('cancelLogout').addEventListener('click', function() {
+                confirmationModal.style.display = 'none';
+            });
+        });
+    } else {
+        loginButton.addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    }
 });
     </script>
   
 
     
 
-
+  <script src="./js/auth.js"></script>
     
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/js.js"></script>

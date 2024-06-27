@@ -6,81 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="./css/singup.css">
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container">
-                <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="" srcset=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">العقارات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">حول</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">برامج الجنسية لدى اسيتفساري</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">البيع</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">المزيد</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="button">
-                    <a href="./login.html"> <button class="button-sing-up button-login" id="login-link">سجل دخول</button></a> 
-                    <button class="button-start">ابدأ</button>
-                </div>
-            </div>
-        </nav>
-    </header>
-    
-<div class="signup-content">
+
    
 
+<div class="signup-content">
+    <p id="message" class="text-center" style="margin-top: 20px; padding: 10px; border-radius: 4px; text-align: center; font-size: 16px;"></p>
+
     <div class="container mt-5">
-      <form id="login-form" class="form">
+      <form id="login-form" class="form" method="post" enctype="multipart/form-data">
           <h2 id="page-title" class="text-center mb-4">إنشاء حساب</h2>
   
           <div class="form-group">
               <label for="email">الإيميل</label>
-              <input type="text" class="form-control" id="email">
+              <input type="text" class="form-control" id="email" required>
           </div>
   
           <div class="form-group">
               <label for="username">اسم المستخدم</label>
-              <input type="text" class="form-control" id="username">
+              <input type="text" class="form-control" id="username" required>
           </div>
   
           <div class="form-group">
               <label for="phone">رقم الهاتف</label>
-              <input type="tel" class="form-control" id="phone">
+              <input type="tel" class="form-control" id="phone" required>
           </div>
   
           <div class="form-group">
               <label for="password">كلمة المرور</label>
-              <input type="password" class="form-control" id="password">
+              <input type="password" class="form-control" id="password" required>
           </div>
   
           <div class="form-group">
               <label for="confirm-password">تأكيد كلمة المرور</label>
-              <input type="password" class="form-control" id="confirm-password">
+              <input type="password" class="form-control" id="confirm-password" required>
           </div>
   
           <div class="uplode">
-            
             <label for="profile-pic" class="labelFile">
-              <label for="">صورة الشخصية </label>
-                <span>
+                <label for="">صورة الشخصية </label>
+                <span onclick="document.getElementById('profile-pic').click()">
                     <svg xml:space="preserve" viewBox="0 0 184.69 184.69" xmlns="http://www.w3.org/2000/svg" width="60px" height="60px">
                         <g>
                             <g>
@@ -96,13 +65,12 @@
                 </span>
                 <p>اسحب و افلت الصورة هنا او قم برفعها من الملفات</p>
                 <p>الحجم الأقصى: 2MB</p>
+                <input type="file" id="profile-pic" name="photo" accept="image/*" required>
             </label>
-        
        
         
         
             <label for="identity-proof" class="labelFile">
-              <label for="">اثبات الشخصية</label>
                 <span>
                     <svg xml:space="preserve" viewBox="0 0 184.69 184.69" xmlns="http://www.w3.org/2000/svg" width="60px" height="60px">
                         <g>
@@ -119,13 +87,17 @@
                 </span>
                 <p>اسحب و افلت الصورة هنا او قم برفعها من الملفات</p>
                 <p>الحجم الأقصى: 1MB</p>
+                <input type="file" id="identity-proof" name="certificate" required>
+
             </label>
+            
         </div>
         <div class="flex-row">
           <a href="../verify-email.html">
-            <button class="centered-button">إنشاء حساب</button>
+          تاكيد الحساب 
           </a>
-          <p class="p">ليس لديك حساب؟ <span class="span"><a href="./signup.html">تسجيل دخول</a></span>
+          <p class="p">ليس لديك حساب؟ <span class="span"></span></p>
+       
 
 
           </p>
@@ -135,7 +107,7 @@
         </div>
 
 
-
+        <button type="submit" class="centered-button">إنشاء حساب</button>
 
 
           <div class="or-line">
@@ -204,36 +176,142 @@
 
 
 </div>
-   
-
 
 <script>
   
-    const loginLink = document.getElementById('login-link');
+    // const loginLink = document.getElementById('login-link');
 
     
-    loginLink.addEventListener('click', function(event) {
+    // loginLink.addEventListener('click', function(event) {
        
-        event.preventDefault();
+    //     event.preventDefault();
 
-        ////Apply animation to page content
-        const indexContent = document.querySelector('.signup-content');
-        indexContent.classList.add('slide-out');
+    //     ////Apply animation to page content
+    //     const indexContent = document.querySelector('.signup-content');
+    //     indexContent.classList.add('slide-out');
 
         
-        setTimeout(function() {
+    //     setTimeout(function() {
            
-            window.location.href = './login.html';
-        }, 1000); 
-    });
+    //         window.location.href = './login.html';
+    //     }, 1000); 
+    // });
+// ......................................................................................................................
+
+
+// signup.js
+
+document.getElementById('login-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const phone_number = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const password_confirmation = document.getElementById('confirm-password').value;
+    const username = document.getElementById('username').value;
+    const photo = document.getElementById('profile-pic').files[0];
+    const certificate = document.getElementById('identity-proof').files[0];
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ في البريد الإلكتروني',
+            text: 'يرجى إدخال بريد إلكتروني صحيح.',
+        });
+        return;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone_number)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ في رقم الهاتف',
+            text: 'يرجى إدخال رقم هاتف صحيح مكون من 10 أرقام.',
+        });
+        return;
+    }
+
+    // Verify password confirmation
+    if (password !== password_confirmation) {
+        Swal.fire({
+            icon: 'error',
+            title: 'عدم تطابق كلمة المرور',
+            text: 'كلمتا المرور غير متطابقتين.',
+        });
+        return;
+    }
+
+    // Prepare data for transmission
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('phone_number', phone_number);
+    formData.append('password', password);
+    formData.append('password_confirmation', password_confirmation);
+    formData.append('username', username);
+    formData.append('photo', photo);
+    formData.append('certificate', certificate);
+
+    try {
+        // Send signup request
+        const response = await fetch('https://task5-riham-esmail.trainees-mad-s.com/api/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: formData,
+        });
+
+        const data = await response.json();
+        console.log('API response:', data);
+
+        if (response.status === 201) {
+            // Save email and username to localStorage
+            localStorage.setItem('user_email', email);
+            localStorage.setItem('username', username);
+            console.log('Email and username saved to localStorage:', email, username);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'تم انشاء الحساب',
+                text: 'تم إنشاء الحساب بنجاح. يرجى التحقق من بريدك الإلكتروني للتأكيد.',
+            });
+        } else if (response.status === 422) {
+            // Account already exists
+            Swal.fire({
+                icon: 'error',
+                title: 'الحساب مسجل مسبقا',
+                text: data.errors || 'البريد الإلكتروني أو رقم الهاتف مسجل مسبقاً.',
+            });
+        } else {
+            // Unexpected error
+            Swal.fire({
+                icon: 'error',
+                title: 'حدث خطا غير متوقع',
+                text: data.message || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+            });
+        }
+    } catch (error) {
+        // Catch any unexpected errors during fetch request
+        Swal.fire({
+            icon: 'error',
+            title: 'حدث خطا غير متوقع',
+            text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+        });
+        console.error('Unexpected error:', error);
+    }
+});
 </script>
 
 
 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/auth.js"></script>
     <script src="./js/js.js"></script>
    
 
